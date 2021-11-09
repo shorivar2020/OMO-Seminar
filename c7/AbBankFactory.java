@@ -39,7 +39,7 @@ public class AbBankFactory extends AbstractBankFactory{
         return new Account() {
             @Override
             public Object getBalance() {
-                return 
+                return balance;
             }
 
             @Override

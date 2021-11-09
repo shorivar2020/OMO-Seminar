@@ -17,7 +17,8 @@ import cz.cvut.fel.omo.cv7.Loan;
  */
 public class AbBankFactory extends AbstractBankFactory{
      private static AbBankFactory instance = null;
-
+     private MonetaryAmount balance = Money.of(0, "EUR");
+     
     @Override
     public BankOffice createBankOffice() {
         return new BankOffice() {
@@ -43,22 +44,26 @@ public class AbBankFactory extends AbstractBankFactory{
 
             @Override
             public Object getWithdrawLimit() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                return Money.of(2000, "EUR");
             }
 
             @Override
             public Object getMonthlyFee() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                return Money.of(1000, "EUR");
             }
 
             @Override
             public void withdraw(Object amount) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                balance = balance.subtract(amount);
             }
 
             @Override
             public void deposit(Object amount) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                balance = balance.add(amount);
+            }
+            @Override
+            public String toString() {
+            return String.format("Uni Account - balance: %s, fee: %s", getBalance(), getMonthlyFee());
             }
         };
     }
